@@ -80,7 +80,7 @@ class House
     result = SqlRunner.run(sql,[id])
     return result.first['house']
   end
-  
+
   def self.find_one(id)
     sql = "
       SELECT house FROM houses WHERE id = $1
@@ -92,6 +92,6 @@ class House
   def self.find_all()
     sql = "SELECT * FROM houses"
     result = SqlRunner.run(sql)
-    return result.map { |house| House.new( house ) }
+    return result.map {|housething| House.new(housething)}
   end
 end
