@@ -45,3 +45,53 @@ class Student
     return "#{@first_name} #{@last_name}"
   end
 end
+
+class House
+  attr_reader :house,:logo,:id
+
+  def initialize(options)
+    @id = options['id'].to_i
+    @house = options['house']
+    @logo = options['logo']
+  end
+
+  def save()
+    sql = "
+      INSERT INTO houses
+      (house,logo)
+      VALUES
+      ($1,$2)
+      RETURNING id
+    "
+    values = [@house,@logo]
+    result = SqlRunner.run(sql,values)
+    @id = result[0]['id'].to_i
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM houses"
+    SqlRunner.run(sql)
+  end
+
+  def self.house(id)
+    sql = "
+      SELECT house FROM houses WHERE id = $1
+    "
+    result = SqlRunner.run(sql,[id])
+    return result.first['house']
+  end
+  
+  def self.find_one(id)
+    sql = "
+      SELECT house FROM houses WHERE id = $1
+    "
+    result = SqlRunner.run(sql,[id])
+    return result.first['house']
+  end
+
+  def self.find_all()
+    sql = "SELECT * FROM houses"
+    result = SqlRunner.run(sql)
+    return result.map { |house| House.new( house ) }
+  end
+end

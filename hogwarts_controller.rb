@@ -17,6 +17,7 @@ post '/students/new' do
   @newguy = Student.new(params)
   @newguy.save()
 
-  @students = Student.find_all()
-  erb(:students)
+  redirect to '/students'
+  # @students = Student.find_all()
+  # erb(:students)
 end
