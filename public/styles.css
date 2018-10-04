@@ -1,0 +1,10 @@
+body {
+
+}
+
+th,td {
+  border:1px solid black;
+  margin:0;
+  text-align:center;
+  padding:10px 25px;
+}
