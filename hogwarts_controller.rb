@@ -6,5 +6,5 @@ also_reload( './models/*' )
 
 get '/students' do
   @students = Student.find_all()
-  erb('students')
+  erb(:students)
 end
